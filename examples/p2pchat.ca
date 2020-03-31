@@ -1,0 +1,185 @@
+lea $document, #document
+get $body, $document, #body
+
+; url, callback
+ldc $loadScript, [
+  psh "script"
+  jfn $script, $document, #createElement, 1
+  $script {
+    @onload: $arg1
+    @src: $arg0
+  }
+  psh $script
+  jfn $, $body, #appendChild, 1
+]
+
+; type
+ldc $createInput, [
+  psh "input"
+  jfn $res, $document, #createElement, 1
+  $res { @type: $arg0 }
+  psh $res
+  jfn $, $body, #appendChild, 1
+  ret $res
+]
+
+; tag
+ldc $createElement, [
+  psh $arg0
+  jfn $res, $document, #createElement, 1
+  psh $res
+  jfn $, $body, #appendChild, 1
+  ret $res
+]
+
+; who, message
+ldc $addChatLog, [
+  get $chatLogContent, $chatLog, #textContent
+  add $chatLogContent, $arg0
+  add $chatLogContent, ": "
+  add $chatLogContent, $arg1
+  add $chatLogContent, "\n"
+  $chatLog { @textContent: $chatLogContent }
+]
+
+; conn
+ldc $handleData, [
+  psh "data"
+  psh [
+    psh "them"
+    psh $arg0
+    jsr $, $addChatLog, 2
+  ]
+  jfn $, $arg0, #on, 2
+]
+
+psh "https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.2.0/peerjs.js"
+psh [
+  lea $Peer, #Peer
+  ctr $Peer
+
+  jsr $peer, $Peer, 0
+
+  psh "open"
+  psh [
+    get $, $peer, #id
+    psh $
+    jsr $, $setPeerId, 1
+  ]
+  jfn $, $peer, #on, 2
+
+  psh "connection"
+  psh [
+    mov $conn, $arg0
+
+    psh true
+    jsr $, $setConnected, 1
+
+    psh $arg0
+    jsr $, $handleData, 1
+  ]
+  jfn $, $peer, #on, 2
+]
+jsr $, $loadScript, 2
+
+
+ldc $connected, false
+
+; state
+ldc $setConnected, [
+  mov $connected, $arg0
+  mov $notConnected, $connected
+  not $notConnected
+
+  $messageBox, $sendButton { @disabled: $notConnected }
+  $peerIdTextBox, $connectButton { @disabled: $connected }
+]
+
+psh "p"
+jsr $peerIdLabel, $createElement, 1
+; peerId
+ldc $setPeerId, [
+  mov $peerId, $arg0
+  ldc $text, "Peer ID: "
+  add $text, $peerId
+  $peerIdLabel { @textContent: $text }
+]
+
+psh "Loading..."
+jsr $, $setPeerId, 1
+
+psh "br"
+jsr $, $createElement, 1
+
+psh "pre"
+jsr $chatLog, $createElement, 1
+
+psh "br"
+jsr $, $createElement, 1
+
+ldc $sendMessage, [
+    get $, $messageBox, #value
+    psh $
+    jfn $, $conn, #send, 1
+
+    psh "you"
+    get $, $messageBox, #value
+    psh $
+    jsr $, $addChatLog, 2
+
+    ldc $, ""
+    set $, $messageBox, #value
+]
+
+psh "text"
+jsr $messageBox, $createInput, 1
+$messageBox {
+  @placeholder: "message"
+  @onkeydown: [
+    get $keyCode, $arg0, #keyCode
+    bne $keyCode, 13
+    jsr $, $sendMessage, 0
+  ]
+}
+
+psh "button"
+jsr $sendButton, $createInput, 1
+$sendButton {
+  @value: "send"
+  @onclick: $sendMessage
+}
+
+psh "br"
+jsr $, $createElement, 1
+
+
+psh "text"
+jsr $peerIdTextBox, $createInput, 1
+$peerIdTextBox {
+  @placeholder: "peer id"
+}
+
+psh "button"
+jsr $connectButton, $createInput, 1
+$connectButton {
+  @value: "connect"
+  @onclick: [
+    $peerIdTextBox, $connectButton { @disabled: true }
+    get $, $peerIdTextBox, #value
+    psh $
+    jfn $conn, $peer, #connect, 1
+
+    psh "open"
+    psh [
+      psh true
+      jsr $, $setConnected, 1
+
+      psh $conn
+      jsr $, $handleData, 1
+    ]
+    jfn $, $conn, #on, 2
+  ]
+}
+
+psh false
+jsr $, $setConnected, 1

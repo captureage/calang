@@ -1,0 +1,28 @@
+lea $document, #document
+get $body, $document, #body
+
+ldc $counter, 0
+
+psh "button"
+jfn $counterButton, $document, #createElement, 1
+
+psh $counterButton
+jfn $, $body, #appendChild, 1
+
+ldc $updateCount, [
+  ldc $text, "Count: "
+  add $text, $counter
+
+  $counterButton {
+    @textContent: $text
+  }
+]
+
+jsr $, $updateCount, 0
+
+$counterButton {
+  @onclick: [
+    add $counter, 1
+    jsr $, $updateCount, 0
+  ]
+}

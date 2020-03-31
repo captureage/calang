@@ -1,0 +1,74 @@
+lea $document, #document
+get $body, $document, #body
+
+ldc $counter, 0
+
+psh "canvas"
+jfn $canvas, $document, #createElement, 1
+
+psh $canvas
+jfn $, $body, #appendChild, 1
+
+body, html {
+  padding: 0
+  margin: 0
+}
+
+ldc $mouseDown, false
+
+$canvas {
+  width: "100vw"
+  height: "100vh"
+
+  @onmousemove: [
+    beq $mouseDown, true
+    ret $
+
+    get $x, $arg0, #offsetX
+    get $y, $arg0, #offsetY
+
+    get $dx, $arg0, #movementX
+    get $dy, $arg0, #movementY
+    mov $sx, $x
+    mov $sy, $y
+    sub $sx, $dx
+    sub $sy, $dy
+
+    psh "2d"
+    jfn $ctx, $canvas, #getContext, 1
+
+    jfn $, $ctx, #beginPath, 0
+
+    psh $sx
+    psh $sy
+    jfn $, $ctx, #moveTo, 2
+
+    psh $x
+    psh $y
+    jfn $, $ctx, #lineTo, 2
+
+    jfn $, $ctx, #stroke, 0
+  ]
+
+  @onmousedown: [
+    ldc $, true
+    mov $mouseDown, $
+  ]
+
+  @onmouseup: [
+    ldc $, false
+    mov $mouseDown, $
+  ]
+}
+
+get $canvasWidth, $canvas, #clientWidth
+get $canvasHeight, $canvas, #clientHeight
+
+body {
+  @onload: [
+    $canvas {
+      @width: $canvasWidth
+      @height: $canvasHeight
+    }
+  ]
+}

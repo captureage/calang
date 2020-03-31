@@ -1,0 +1,13 @@
+body {
+  @onclick: [
+    lea $alert, #alert
+
+    psh "hello world!"
+    jsr $, $alert, 1
+
+    body {
+      background-color: "blue"
+    }
+  ]
+  background-color: "red"
+}
