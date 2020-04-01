@@ -6,7 +6,7 @@ A revolutionary programming language that combines **C**ss and **A**ssembler to 
 - [Features](#Features)
 - [Concepts](#Concepts)
 - [Examples](#Examples)
-- [Building & Running Examples](#Building_&_Running_Examples)
+- [Building & Running Examples](#Building--Running-Examples)
 - [Instructions](#Instructions)
 
 ## Features
