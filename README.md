@@ -1,4 +1,4 @@
-![logo](https://calang.captureage.com/logo.png)
+![logo](https://calang.captureage.com/logo-small.png)
 
 # CALang
 <small>*Not to be confused with the inferior compiler toolchain called "clang"*</small>  
