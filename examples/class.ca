@@ -1,0 +1,23 @@
+; name
+ldc $Greeter, [
+    $this {
+        @name: $arg0
+    }
+]
+
+get $Greeter_proto, $Greeter, #prototype
+$Greeter_proto {
+    @greet: [
+        ldc $message, "Hello "
+        get $name, $this, #name
+        add $message, $name
+        dbg $message
+    ]
+}
+
+ctr $Greeter
+
+psh "Dummy"
+jsr $greeter, $Greeter, 1
+
+jfn $, $greeter, #greet, 0
