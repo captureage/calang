@@ -1,3 +1,5 @@
+![logo](https://calang.captureage.com/logo.png)
+
 # CALang
 <small>*Not to be confused with the inferior compiler toolchain called "clang"*</small>  
 A revolutionary programming language that combines **C**ss and **A**ssembler to write modern web apps.

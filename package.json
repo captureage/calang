@@ -1,6 +1,7 @@
 {
   "name": "@captureage/calang",
   "version": "1.0.0",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^13.9.8",
     "@types/yargs": "^15.0.4",
