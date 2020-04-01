@@ -2,11 +2,18 @@
 <small>*Not to be confused with the inferior compiler toolchain called "clang"*</small>  
 A revolutionary programming language that combines **C**ss and **A**ssembler to write modern web apps.
 
-Features:
+## Table of contents
+- [Features](#Features)
+- [Concepts](#Concepts)
+- [Examples](#Examples)
+- [Building & Running Examples](#Building_&_Running_Examples)
+- [Instructions](#Instructions)
+
+## Features
 - strings (kinda), are a first class citizen
 - numbers, only floating point. Integers are not supported. <small>*They're useless anyway, we're not working on a 16bit platform here.*</small>
 
-Concepts:
+## Concepts
 - strings, denoted by quotes: `"example"`
 - numbers, just write 'em: `1234`
 - symbols, prefixed with a pound sign: `#document`
@@ -15,7 +22,36 @@ Concepts:
 <small>*The special $argN register, for example: `$arg0`*</small>  
 <small>*The special `$this` register*</small>
 
-Instructions:
+## Examples
+- [counter-button](https://calang.captureage.com/examples/counter-button.html)
+- [doodle](https://calang.captureage.com/examples/doodle.html)
+- [p2pchat](https://calang.captureage.com/examples/p2pchat.html)
+- [simple-onclick](https://calang.captureage.com/examples/simple-onclick.html)
+
+## Example code
+```
+body {
+  @onload: [
+    lea $alert, #alert
+
+    psh "hello world!"
+    jsr $, $alert, 1
+  ];
+}
+
+```
+
+## Building & Running Examples
+```
+yarn install
+yarn link
+calang -wd examples/counter-button.ca
+calang -wd examples/doodle.ca
+calang -wd examples/p2pchat.ca
+calang -wd examples/simple-onclick.ca
+```
+
+## Instructions
 - `lea <reg>, <sym>`
 - `ldc <reg>, <val>`
 - `mov <dst>, <src>`
@@ -57,27 +93,3 @@ Instructions:
 
 
 - `dbg <reg/imm>`
-
-Example code:
-```
-body {
-  @onload: [
-    lea $alert, #alert
-
-    psh "hello world!"
-    jsr $, $alert, 1
-  ];
-}
-
-```
-
-To run an example in dev mode:
-```
-yarn install
-yarn link
-calang -wd examples/counter-button.ca
-calang -wd examples/doodle.ca
-calang -wd examples/p2pchat.ca
-calang -wd examples/simple-onclick.ca
-
-```
