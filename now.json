@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "src": ".*",
+      "status": 302,
+      "headers": {
+        "Location": "https://github.com/captureage/calang"
+      }
+    }
+  ]
+}
