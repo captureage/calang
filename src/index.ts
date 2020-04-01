@@ -42,7 +42,7 @@ yargs
 
             function doCompile() {
                 const codeOutput = compile(readCode());
-                const html = `<html><body><script>(${codeOutput})();</script></body></html>`;
+                const html = `<html><body><script>${codeOutput}</script></body></html>`;
                 try {
                     if (argv.dev) {
                         devCode = html;

@@ -1,9 +1,23 @@
 {
   "compilerOptions": {
     "outDir": "lib",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "ES2017",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": [
     "src/**.ts"

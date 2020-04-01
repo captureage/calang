@@ -4,6 +4,8 @@
 <small>*Not to be confused with the inferior compiler toolchain called "clang"*</small>  
 A revolutionary programming language that combines **C**ss and **A**ssembler to write modern web apps.
 
+To test it out head over to the [playground](https://calang.captureage.com/playground)!
+
 ## Table of contents
 - [Features](#Features)
 - [Concepts](#Concepts)

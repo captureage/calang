@@ -199,5 +199,5 @@ export function compile(code: string) {
     }
 
     const program = parser.program();
-    return _codeBlock(program.instruction());
+    return `(${_codeBlock(program.instruction())})();`;
 }
