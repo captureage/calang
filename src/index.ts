@@ -51,6 +51,12 @@ yargs
                         if (!outPath) {
                             outPath = path.join(path.dirname(argv.input), path.basename(argv.input, path.extname(argv.input)) + ".html");
                         }
+                        if (!outPath.includes(".")) {
+                            if (!fs.existsSync(outPath)) {
+                                fs.mkdirSync(outPath, {recursive: true});
+                            }
+                            outPath = path.join(outPath, path.basename(argv.input, path.extname(argv.input)) + ".html");
+                        }
                         console.log("Writing to: " + outPath);
                         fs.writeFileSync(outPath, html);
                     }

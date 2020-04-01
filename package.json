@@ -13,7 +13,8 @@
     "gen-lang": "antlr4ts -visitor src/CALang.g4 -o grammar",
     "tsc-watch": "tsc -watch",
     "tsc": "tsc",
-    "postinstall": "yarn run gen-lang && yarn run tsc"
+    "postinstall": "yarn run gen-lang && yarn run tsc",
+    "build-examples": "calang -o public/examples examples/p2pchat.ca && calang -o public/examples examples/doodle.ca && calang -o public/examples examples/counter-button.ca && calang -o public/examples examples/simple-onclick.ca"
   },
   "bin": {
     "calang": "bin/calang"
