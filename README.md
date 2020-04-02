@@ -1,3 +1,5 @@
+> Post April 1st edit: this was posted on April 1st.
+
 ![logo](https://calang.captureage.com/logo-small.png)
 
 # CALang
